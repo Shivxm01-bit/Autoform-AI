@@ -117,7 +117,7 @@ const SAMPLE_CRC_PROFILE = {
   applying_for_role: 'Software Development Engineer (SDE)',
 };
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://autoform-ai-production-5b46.up.railway.app';
 
 export default function DashboardPage() {
   const { user, session, signOut } = useAuth();
