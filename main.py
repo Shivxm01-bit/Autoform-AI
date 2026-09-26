@@ -12,6 +12,8 @@ from models.schemas import GenerateLinkRequest, GenerateLinkResponse
 from services.auth_service import get_current_user
 from services.google_form_service import GoogleFormService
 
+from typing import Any, Dict
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
