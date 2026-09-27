@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { supabase, isSupabaseConfigured } from '../lib/supabaseClient';
-import { 
-  Sparkles, 
-  User, 
-  Link as LinkIcon, 
-  Copy, 
-  Check, 
-  ExternalLink, 
-  Save, 
-  CheckCircle2, 
-  AlertCircle, 
-  RotateCcw, 
-  Zap, 
-  Mail, 
-  Phone, 
-  GraduationCap, 
+import {
+  Sparkles,
+  User,
+  Link as LinkIcon,
+  Copy,
+  Check,
+  ExternalLink,
+  Save,
+  CheckCircle2,
+  AlertCircle,
+  RotateCcw,
+  Zap,
+  Mail,
+  Phone,
+  GraduationCap,
   Layers,
   ArrowRight,
   RefreshCw,
@@ -363,19 +363,12 @@ export default function DashboardPage() {
     setResult(null);
 
     try {
-      const token = session?.access_token;
-      
-      const headers = {
-        'Content-Type': 'application/json',
-      };
-
-      if (token) {
-        headers['Authorization'] = `Bearer ${token}`;
-      }
-
       const response = await fetch(`${API_BASE_URL}/api/generate-link`, {
         method: 'POST',
-        headers,
+        headers: {
+          'Authorization': `Bearer ${session?.access_token}`, // Make sure it says access_token!
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
           form_url: formUrl.trim(),
           student: {
@@ -527,7 +520,7 @@ export default function DashboardPage() {
 
         {/* 2-Column Side-by-Side Cards Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
+
           {/* ================================================================= */}
           {/* CARD 1: MASTER CRC PROFILE (7 Cols on large screens)              */}
           {/* ================================================================= */}
@@ -594,7 +587,7 @@ export default function DashboardPage() {
             )}
 
             <form onSubmit={handleSaveProfile} className="space-y-5">
-              
+
               {/* ============================================================= */}
               {/* SECTION 1: PERSONAL INFORMATION                               */}
               {/* ============================================================= */}
@@ -1140,11 +1133,10 @@ export default function DashboardPage() {
                 <button
                   type="submit"
                   disabled={isSavingProfile}
-                  className={`w-full py-3.5 px-4 rounded-xl font-bold text-sm flex items-center justify-center space-x-2 transition-all duration-200 shadow-lg cursor-pointer ${
-                    isSaved
+                  className={`w-full py-3.5 px-4 rounded-xl font-bold text-sm flex items-center justify-center space-x-2 transition-all duration-200 shadow-lg cursor-pointer ${isSaved
                       ? 'bg-emerald-600 text-white shadow-emerald-600/20 ring-2 ring-emerald-400'
                       : 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-indigo-600/25 active:scale-[0.99]'
-                  }`}
+                    }`}
                 >
                   {isSavingProfile ? (
                     <>
@@ -1266,13 +1258,13 @@ export default function DashboardPage() {
                   <label className="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
                     Pre-Filled Google Form URL
                   </label>
-                  
+
                   <div className="flex items-center space-x-2">
                     <div className="flex-1 p-2.5 rounded-xl bg-slate-950/90 border border-white/10 font-mono text-[11px] text-indigo-300 break-all select-all max-h-20 overflow-y-auto">
-                      <a 
-                        href={result.prefilled_url} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
+                      <a
+                        href={result.prefilled_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="hover:underline flex items-center space-x-1 text-indigo-300 hover:text-indigo-200"
                       >
                         <span>{result.prefilled_url}</span>
@@ -1284,11 +1276,10 @@ export default function DashboardPage() {
                       type="button"
                       onClick={handleCopy}
                       title="Copy to Clipboard"
-                      className={`p-2.5 rounded-xl border transition-all duration-150 flex items-center justify-center shrink-0 cursor-pointer ${
-                        copied
+                      className={`p-2.5 rounded-xl border transition-all duration-150 flex items-center justify-center shrink-0 cursor-pointer ${copied
                           ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-400 ring-2 ring-emerald-500/30'
                           : 'bg-white/5 hover:bg-white/10 border-white/10 text-slate-200 hover:text-white active:scale-95'
-                      }`}
+                        }`}
                     >
                       {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
                     </button>
@@ -1327,8 +1318,8 @@ export default function DashboardPage() {
 
                     <div className="space-y-1.5 max-h-48 overflow-y-auto pr-1 text-xs">
                       {result.matched_fields.map((field, idx) => (
-                        <div 
-                          key={idx} 
+                        <div
+                          key={idx}
                           className="flex items-center justify-between p-2 rounded-lg bg-slate-950/60 border border-white/5"
                         >
                           <div className="truncate mr-2">
