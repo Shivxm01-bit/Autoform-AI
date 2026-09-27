@@ -54,8 +54,8 @@ class SupabaseAuth:
             payload = jwt.decode(
                 token,
                 secret,
-                algorithms=[self.algorithm],
-                options={"verify_aud": False}  # Supabase tokens may have 'authenticated' or custom aud
+                algorithms=["HS256"],
+                audience="authenticated",
             )
 
             # Ensure 'sub' (User ID) is present
