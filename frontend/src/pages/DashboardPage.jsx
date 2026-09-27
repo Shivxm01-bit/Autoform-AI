@@ -366,7 +366,7 @@ export default function DashboardPage() {
       const response = await fetch(`${API_BASE_URL}/api/generate-link`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${session?.access_token}`, // Make sure it says access_token!
+          'Authorization': `Bearer ${session.access_token}`, // Make sure it is access_token!
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
@@ -1134,8 +1134,8 @@ export default function DashboardPage() {
                   type="submit"
                   disabled={isSavingProfile}
                   className={`w-full py-3.5 px-4 rounded-xl font-bold text-sm flex items-center justify-center space-x-2 transition-all duration-200 shadow-lg cursor-pointer ${isSaved
-                      ? 'bg-emerald-600 text-white shadow-emerald-600/20 ring-2 ring-emerald-400'
-                      : 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-indigo-600/25 active:scale-[0.99]'
+                    ? 'bg-emerald-600 text-white shadow-emerald-600/20 ring-2 ring-emerald-400'
+                    : 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-indigo-600/25 active:scale-[0.99]'
                     }`}
                 >
                   {isSavingProfile ? (
@@ -1277,8 +1277,8 @@ export default function DashboardPage() {
                       onClick={handleCopy}
                       title="Copy to Clipboard"
                       className={`p-2.5 rounded-xl border transition-all duration-150 flex items-center justify-center shrink-0 cursor-pointer ${copied
-                          ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-400 ring-2 ring-emerald-500/30'
-                          : 'bg-white/5 hover:bg-white/10 border-white/10 text-slate-200 hover:text-white active:scale-95'
+                        ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-400 ring-2 ring-emerald-500/30'
+                        : 'bg-white/5 hover:bg-white/10 border-white/10 text-slate-200 hover:text-white active:scale-95'
                         }`}
                     >
                       {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
