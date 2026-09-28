@@ -53,9 +53,10 @@ class SupabaseAuth:
             # Decode and verify token
             # Check which algorithm Supabase used to sign this token
             unverified_header = jwt.get_unverified_header(token)
+            alg = unverified_header.get("alg")
             
-            if unverified_header.get("alg") == "RS256":
-                # For new Supabase RS256 tokens: fetch the public key dynamically
+            if alg in ["RS256", "ES256"]:
+                # For new Supabase asymmetric tokens: fetch the public key dynamically
                 unverified_payload = jwt.decode(token, options={"verify_signature": False})
                 jwks_url = f"{unverified_payload['iss']}/.well-known/jwks.json"
                 jwks_client = jwt.PyJWKClient(jwks_url)
@@ -64,7 +65,7 @@ class SupabaseAuth:
                 payload = jwt.decode(
                     token,
                     signing_key.key,
-                    algorithms=["RS256"],
+                    algorithms=["RS256", "ES256"],
                     audience="authenticated"
                 )
             else:
