@@ -9,15 +9,13 @@ export const ProtectedRoute = ({ children }) => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-black text-slate-100">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-[#f4f4f2] text-neutral-900 font-sans">
         <div className="relative flex flex-col items-center space-y-4">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-500 p-0.5 shadow-2xl shadow-indigo-500/30 animate-pulse">
-            <div className="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
-              <Sparkles className="w-7 h-7 text-indigo-400 animate-spin" />
-            </div>
+          <div className="w-12 h-12 rounded-2xl bg-neutral-900 text-white flex items-center justify-center shadow-sm">
+            <Sparkles className="w-6 h-6 animate-pulse" />
           </div>
-          <div className="flex items-center space-x-2 text-slate-400 text-sm font-medium">
-            <Loader2 className="w-4 h-4 animate-spin text-indigo-400" />
+          <div className="flex items-center space-x-2 text-neutral-500 text-xs font-medium tracking-wide">
+            <Loader2 className="w-4 h-4 animate-spin text-neutral-800" />
             <span>Verifying session...</span>
           </div>
         </div>

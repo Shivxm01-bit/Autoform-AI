@@ -107,52 +107,46 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-black text-slate-100 relative overflow-hidden py-12">
-      {/* Background glowing blurs */}
-      <div className="absolute top-1/4 -left-20 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none -z-10" />
-      <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl pointer-events-none -z-10" />
-
-      {/* Main Auth Card Container */}
+    <div className="min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 bg-[#f4f4f2] text-neutral-900 py-12 selection:bg-neutral-900 selection:text-white">
+      {/* Main Floating Card Container */}
       <div className="w-full max-w-md">
         {/* Brand Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-500 p-0.5 shadow-xl shadow-indigo-500/25 mb-3">
-            <div className="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
-              <Sparkles className="w-7 h-7 text-indigo-400 animate-pulse" />
-            </div>
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-neutral-900 text-white shadow-sm mb-3">
+            <Sparkles className="w-6 h-6" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-slate-400">
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900">
             AutoForm AI
           </h1>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-neutral-500 mt-1">
             Secure Student Profile & Google Forms Autofill Engine
           </p>
         </div>
 
         {/* Configuration notice if Supabase keys not set */}
         {!isConfigured && (
-          <div className="mb-6 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-200 flex items-start space-x-3 animate-in fade-in">
-            <KeyRound className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+          <div className="mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-800 flex items-start space-x-3">
+            <KeyRound className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
             <div>
-              <p className="font-semibold text-amber-300">Supabase Setup Required</p>
-              <p className="mt-1 text-amber-200/90 leading-relaxed">
-                Add your <code className="bg-amber-500/20 px-1 py-0.5 rounded text-white">VITE_SUPABASE_URL</code> and <code className="bg-amber-500/20 px-1 py-0.5 rounded text-white">VITE_SUPABASE_ANON_KEY</code> to <code className="bg-amber-500/20 px-1 py-0.5 rounded text-white">frontend/.env</code> to enable live cloud authentication.
+              <p className="font-semibold text-amber-900">Supabase Setup Required</p>
+              <p className="mt-1 text-amber-700 leading-relaxed">
+                Add your <code className="bg-amber-100 px-1 py-0.5 rounded text-amber-900">VITE_SUPABASE_URL</code> and <code className="bg-amber-100 px-1 py-0.5 rounded text-amber-900">VITE_SUPABASE_ANON_KEY</code> to <code className="bg-amber-100 px-1 py-0.5 rounded text-amber-900">frontend/.env</code> to enable live cloud authentication.
               </p>
             </div>
           </div>
         )}
 
-        {/* Glassmorphic Auth Box */}
-        <div className="rounded-2xl glass-panel p-6 sm:p-8 border border-white/10 shadow-2xl relative">
-          {/* Top Tabs */}
-          <div className="flex rounded-xl bg-slate-950/70 p-1 border border-white/10 mb-6">
+        {/* White Floating Bento Card */}
+        <div className="bg-white rounded-[32px] p-8 sm:p-10 border border-neutral-200/70 shadow-sm relative">
+          {/* Top Pill Tabs */}
+          <div className="flex rounded-full bg-neutral-100 p-1 border border-neutral-200/60 mb-6">
             <button
               type="button"
               onClick={() => { setMode('signin'); setError(null); setSuccessMessage(null); }}
-              className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all ${
+              className={`flex-1 py-2 text-xs font-medium rounded-full transition-all cursor-pointer ${
                 mode === 'signin'
-                  ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-white text-neutral-900 shadow-xs font-semibold'
+                  : 'text-neutral-500 hover:text-neutral-900'
               }`}
             >
               Sign In
@@ -160,10 +154,10 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={() => { setMode('signup'); setError(null); setSuccessMessage(null); }}
-              className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all ${
+              className={`flex-1 py-2 text-xs font-medium rounded-full transition-all cursor-pointer ${
                 mode === 'signup'
-                  ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-white text-neutral-900 shadow-xs font-semibold'
+                  : 'text-neutral-500 hover:text-neutral-900'
               }`}
             >
               Create Account
@@ -175,12 +169,12 @@ export default function LoginPage() {
             type="button"
             onClick={handleGoogleSignIn}
             disabled={googleLoading || loading}
-            className="w-full py-3 px-4 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-semibold text-sm transition-all duration-150 flex items-center justify-center space-x-3 shadow-md hover:shadow-lg disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+            className="w-full py-2.5 px-4 rounded-full border border-neutral-200 bg-white hover:bg-neutral-50 text-neutral-800 font-medium text-sm transition-colors flex items-center justify-center space-x-2.5 shadow-xs disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
           >
             {googleLoading ? (
-              <Loader2 className="w-5 h-5 animate-spin text-slate-700" />
+              <Loader2 className="w-4 h-4 animate-spin text-neutral-600" />
             ) : (
-              <GoogleIcon className="w-5 h-5" />
+              <GoogleIcon className="w-4 h-4" />
             )}
             <span>Continue with Google</span>
           </button>
@@ -188,10 +182,10 @@ export default function LoginPage() {
           {/* Divider */}
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-white/10" />
+              <div className="w-full border-t border-neutral-200" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-slate-900 px-3 text-slate-400 font-medium tracking-wider">
+              <span className="bg-white px-3 text-neutral-400 font-medium tracking-wider text-[10px]">
                 Or continue with email
               </span>
             </div>
@@ -199,18 +193,18 @@ export default function LoginPage() {
 
           {/* Error & Success Feedback Alerts */}
           {error && (
-            <div className="mb-4 p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-xs text-rose-200 flex items-start space-x-2.5 animate-in fade-in">
-              <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+            <div className="mb-4 p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-xs text-rose-700 flex items-start space-x-2.5">
+              <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
               <div>
-                <span className="font-semibold text-rose-300">Authentication Error: </span>
+                <span className="font-semibold">Authentication Error: </span>
                 <span>{error}</span>
               </div>
             </div>
           )}
 
           {successMessage && (
-            <div className="mb-4 p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-200 flex items-start space-x-2.5 animate-in fade-in">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+            <div className="mb-4 p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-700 flex items-start space-x-2.5">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
               <div>{successMessage}</div>
             </div>
           )}
@@ -220,11 +214,11 @@ export default function LoginPage() {
             {/* Full Name for Sign Up */}
             {mode === 'signup' && (
               <div>
-                <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-medium text-neutral-600 uppercase tracking-wider mb-1.5">
                   Full Name
                 </label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-neutral-400">
                     <User className="w-4 h-4" />
                   </div>
                   <input
@@ -234,7 +228,7 @@ export default function LoginPage() {
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     autoComplete="name"
-                    className="w-full pl-9 pr-3.5 py-2.5 rounded-xl glass-input text-sm text-white placeholder-slate-500"
+                    className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-neutral-50 border border-neutral-200 text-sm text-neutral-900 placeholder:text-neutral-400 focus:bg-white focus:outline-none focus:ring-1 focus:ring-neutral-900 focus:border-neutral-900 transition-all"
                   />
                 </div>
               </div>
@@ -242,11 +236,11 @@ export default function LoginPage() {
 
             {/* Email Address */}
             <div>
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-medium text-neutral-600 uppercase tracking-wider mb-1.5">
                 Email Address
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-neutral-400">
                   <Mail className="w-4 h-4" />
                 </div>
                 <input
@@ -256,18 +250,18 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   autoComplete="email"
-                  className="w-full pl-9 pr-3.5 py-2.5 rounded-xl glass-input text-sm text-white placeholder-slate-500"
+                  className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-neutral-50 border border-neutral-200 text-sm text-neutral-900 placeholder:text-neutral-400 focus:bg-white focus:outline-none focus:ring-1 focus:ring-neutral-900 focus:border-neutral-900 transition-all"
                 />
               </div>
             </div>
 
             {/* Password */}
             <div>
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-medium text-neutral-600 uppercase tracking-wider mb-1.5">
                 Password
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-neutral-400">
                   <Lock className="w-4 h-4" />
                 </div>
                 <input
@@ -278,12 +272,12 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   autoComplete={mode === 'signin' ? 'current-password' : 'new-password'}
-                  className="w-full pl-9 pr-10 py-2.5 rounded-xl glass-input text-sm text-white placeholder-slate-500"
+                  className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-neutral-50 border border-neutral-200 text-sm text-neutral-900 placeholder:text-neutral-400 focus:bg-white focus:outline-none focus:ring-1 focus:ring-neutral-900 focus:border-neutral-900 transition-all"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-200"
+                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-neutral-400 hover:text-neutral-700 cursor-pointer"
                   title={showPassword ? 'Hide password' : 'Show password'}
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -296,7 +290,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 px-4 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 hover:from-indigo-500 hover:via-indigo-400 hover:to-purple-500 transition-all duration-200 shadow-lg shadow-indigo-600/25 flex items-center justify-center space-x-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                className="w-full py-3 px-6 rounded-full font-medium text-sm text-white bg-neutral-900 hover:bg-neutral-800 transition-colors shadow-sm flex items-center justify-center space-x-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               >
                 {loading ? (
                   <>
@@ -314,8 +308,8 @@ export default function LoginPage() {
           </form>
 
           {/* Footer Security Badge */}
-          <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-center space-x-2 text-[11px] text-slate-400">
-            <ShieldCheck className="w-4 h-4 text-indigo-400" />
+          <div className="mt-8 pt-4 border-t border-neutral-100 flex items-center justify-center space-x-2 text-[11px] text-neutral-400">
+            <ShieldCheck className="w-4 h-4 text-neutral-500" />
             <span>Secured with Supabase Authentication & PostgreSQL RLS</span>
           </div>
         </div>
