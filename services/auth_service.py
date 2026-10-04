@@ -23,7 +23,6 @@ class SupabaseAuth:
     def __init__(self):
         self.jwt_secret = os.getenv("SUPABASE_JWT_SECRET", "").strip()
         self.supabase_url = os.getenv("SUPABASE_URL", "").strip()
-        self.algorithm = "HS256"
 
     def reload_config(self) -> None:
         """Reload configuration from environment variables."""
@@ -50,13 +49,43 @@ class SupabaseAuth:
             )
 
         try:
-            # Decode and verify token
-            payload = jwt.decode(
-                token,
-                secret,
-                algorithms=["HS256"],
-                audience="authenticated"
-            )
+            # 1. Grab EXACTLY what algorithm the token is using
+            unverified_header = jwt.get_unverified_header(token)
+            token_alg = unverified_header.get("alg", "HS256")
+            
+            if token_alg == "HS256":
+                # Standard symmetric token fallback
+                payload = jwt.decode(
+                    token,
+                    secret,
+                    algorithms=["HS256"],
+                    audience="authenticated"
+                )
+            else:
+                # Asymmetric token (RS256, ES256) handling
+                # Extract unverified payload to find the Supabase issuer URL
+                unverified_payload = jwt.decode(
+                    token, 
+                    options={"verify_signature": False}, 
+                    algorithms=[token_alg]
+                )
+                
+                if not unverified_payload.get("iss"):
+                    raise jwt.InvalidTokenError("Missing 'iss' (issuer) claim in token.")
+                
+                # Fetch Supabase's live public key
+                jwks_url = f"{unverified_payload['iss']}/.well-known/jwks.json"
+                jwks_client = jwt.PyJWKClient(jwks_url)
+                signing_key = jwks_client.get_signing_key_from_jwt(token)
+                
+                # Decode the token using the downloaded public key
+                payload = jwt.decode(
+                    token,
+                    signing_key.key,
+                    algorithms=[token_alg],
+                    audience="authenticated"
+                )
+
             # Ensure 'sub' (User ID) is present
             if not payload.get("sub"):
                 raise HTTPException(
